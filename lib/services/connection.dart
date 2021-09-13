@@ -5,9 +5,9 @@ import 'package:api_app/model/post.dart';
 import 'package:api_app/registration.dart';
 import 'package:http/http.dart' as http;
 
-Future<PostResponse> getNews() async {
-  final response = await http
-      .get(Uri.parse('http://api.allnigerianewspapers.com.ng/api/news/'));
+Future<PostResponse> getNews(String? page) async {
+  final response = await http.get(
+      Uri.parse(page ?? 'http://api.allnigerianewspapers.com.ng/api/news/'));
   var newsModel;
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
