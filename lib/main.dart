@@ -1,10 +1,10 @@
+import 'package:api_app/add_author.dart';
 import 'package:api_app/drawer.dart';
 import 'package:api_app/search.dart';
 import 'package:api_app/services/connection.dart';
 import 'package:flutter/material.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
-import 'add_author.dart';
 import 'model/post.dart';
 
 void main() {
@@ -19,11 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final List<TitledNavigationBarItem> items = [
     TitledNavigationBarItem(title: Text('Home'), icon: Icon(Icons.home)),
     TitledNavigationBarItem(title: Text('Search'), icon: Icon(Icons.search)),
@@ -35,6 +30,35 @@ class _MyAppState extends State<MyApp> {
   ];
 
   bool navBarMode = false;
+
+  List<Post> posts = [];
+  String? page;
+
+  bool loading = true;
+  String? error;
+
+  Future<void> fetchPosts() async {
+    try {
+      PostResponse res = await getNews(page);
+
+      posts.addAll(res.posts);
+      page = res.nextUrl;
+
+      loading = false;
+    } catch (e) {
+      loading = false;
+      error = e.toString();
+    }
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => fetchPosts());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,29 +86,7 @@ class _MyAppState extends State<MyApp> {
         ),
         drawer: NavDrawer(),
         body: Center(
-          child: FutureBuilder<PostResponse>(
-            future: getNews(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              if (snapshot.hasData) {
-                List<Post> posts = snapshot.data!.posts;
-
-                return ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    Post post = posts[index];
-                    print(post.title);
-                    return Text(post.title);
-                  },
-                );
-              }
-
-              return Center(child: CircularProgressIndicator());
-            },
-          ),
+          child: _buildPostsList(),
         ),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
@@ -94,7 +96,6 @@ class _MyAppState extends State<MyApp> {
                 MaterialPageRoute(builder: (context) => AddAuthor()),
               );
             }),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         bottomNavigationBar: TitledBottomNavigationBar(
           height: 60,
           indicatorHeight: 2,
@@ -106,6 +107,33 @@ class _MyAppState extends State<MyApp> {
           inactiveColor: Colors.blueGrey,
         ),
       ),
+    );
+  }
+
+  Widget _buildPostsList() {
+    if (loading) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    if (error != null) {
+      return Text(error!);
+    }
+    return ListView.builder(
+      itemCount: posts.length + 1,
+      itemBuilder: (context, index) {
+        if (index >= posts.length) {
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            fetchPosts();
+          });
+
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        Post post = posts[index];
+        print(post.title);
+        return Text(post.title);
+      },
     );
   }
 }
