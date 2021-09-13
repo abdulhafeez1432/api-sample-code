@@ -6,8 +6,8 @@ import 'package:api_app/model/site.dart';
 import 'category.dart';
 
 class PostResponse {
-  String nextUrl;
-  String prevUrl;
+  String? nextUrl;
+  String? prevUrl;
   List<Post> posts;
 
   PostResponse({
@@ -17,12 +17,17 @@ class PostResponse {
   });
 
   factory PostResponse.fromJson(dynamic json) {
-    print(json);
+    // print(json);
+
+    List<Post> posts = [];
+    if (json['results'] != null) {
+      posts = (json['results'] as List).map((x) => Post.fromJson(x)).toList();
+    }
+
     return PostResponse(
-      posts: (json['results'] as List).map((x) => Post.fromJson(x)).toList(),
-      // posts: [],
-      nextUrl: json['next'] as String,
-      prevUrl: json['previous'] as String,
+      posts: posts,
+      nextUrl: json['next'],
+      prevUrl: json['previous'],
     );
   }
 
@@ -38,7 +43,7 @@ class Post {
   String imageUrl;
   String url;
   Category category;
-  String author;
+  String? author;
   Site site;
   String uploaded;
 
@@ -54,15 +59,14 @@ class Post {
   });
 
   factory Post.fromJson(dynamic json) => Post(
-        title: json["title"] as String,
-        content: json["content"] as String,
-        imageUrl: json["image_url"] as String,
-        url: json["url"] as String,
+        title: json["title"],
+        content: json["content"],
+        imageUrl: json["image_url"],
+        url: json["url"],
         category: Category.fromJson(json["category"]),
-        //author: json["author"] as String ?? 'Admin',
-        author: json["author"] as String,
+        author: json["author"] ?? 'Admin',
         site: Site.fromJson(json["site"]),
-        uploaded: json["uploaded"] as String,
+        uploaded: json["uploaded"],
       );
 
   Map<String, dynamic> toJson() => {
