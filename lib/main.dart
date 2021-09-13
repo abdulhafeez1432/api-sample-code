@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> {
         drawer: NavDrawer(),
         body: Center(
           child: _buildPostsList(),
+          //child: _myPostList(),
         ),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
@@ -131,9 +132,114 @@ class _MyAppState extends State<MyApp> {
           );
         }
         Post post = posts[index];
+
         print(post.title);
-        return Text(post.title);
+        print(post.url);
+
+        return Container(
+          margin: EdgeInsets.all(5),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.15,
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.15,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image(
+                    image: NetworkImage(post.url),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    post.title,
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      print("It is Working Fine");
+                    },
+                    child: Text(post.title),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
       },
+    );
+  }
+
+  Widget _myPostList() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.15,
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.15,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                "assets/images/space.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "NASA's green propellent\n infusion mission deploys",
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                  "NASA's green propellent mission (GPM0 has\nsucessfully launced from EDM"),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
