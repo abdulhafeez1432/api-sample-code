@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontFamily: 'Noticia Text',
-                              fontSize: 15,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600),
                         ),
                         Padding(
@@ -235,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                                   border: Border.all(color: Colors.white),
                                 ),
                                 child: Text(
-                                  post.category.name.toUpperCase(),
+                                  post.category.name.toLowerCase(),
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 14,
