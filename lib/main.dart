@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'All NewsPaper Application',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        primaryColor: Colors
+            .pink[700], //Changing this will change the color of the TabBar
+        accentColor: Colors.cyan[600],
       ),
       //home: LoginPage(),
       home: HomePage(),

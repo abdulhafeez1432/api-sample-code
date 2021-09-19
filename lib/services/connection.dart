@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:api_app/model/author.dart';
+import 'package:api_app/model/news_category.dart';
 import 'package:api_app/model/post.dart';
-import 'package:api_app/registration.dart';
 import 'package:http/http.dart' as http;
 
 Future<PostResponse> getNews(String? page) async {
@@ -21,26 +21,18 @@ Future<PostResponse> getNews(String? page) async {
   }
 }
 
-Future<Registration> createUser(String username) async {
-  final response = await http.post(
-    Uri.parse('http://api.allnigerianewspapers.com.ng/api/register'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'username': username,
-    }),
-  );
-  print(response.statusCode);
+Future<List<NewsCategory>> fetchCategory() async {
+  final response = await http
+      .get(Uri.parse('https://api.allnigerianewspapers.com.ng/api/category/'));
 
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return Registration.fromJson(jsonDecode(response.body));
+  if (response.statusCode == 200) {
+    final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+
+    return parsed
+        .map<NewsCategory>((json) => NewsCategory.fromMap(json))
+        .toList();
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to load album');
   }
 }
 

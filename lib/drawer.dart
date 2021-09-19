@@ -1,12 +1,19 @@
 import 'package:api_app/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 
+import 'pages/category/categories.dart';
+
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void toRegister() {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => RegisterPage()));
+    }
+
+    void toCategory() {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => AllCategory()));
     }
 
     return Drawer(
@@ -37,8 +44,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.favorite),
-            title: Text('Favorites'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: Text('Category'),
+            onTap: toCategory,
           ),
           ListTile(
             leading: Icon(Icons.person),

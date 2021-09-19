@@ -8,7 +8,6 @@ import '../../drawer.dart';
 import '../../model/post.dart';
 import '../../search.dart';
 import '../../services/connection.dart';
-import '../add_author/add_author.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -61,47 +60,83 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('All Nigeria NewsPaper App'),
-        centerTitle: true,
-        actions: [
-          // Navigate to the Search Screen
-          IconButton(
-              onPressed: () {
-                Navigator.push(
+    return DefaultTabController(
+      length: 6,
+      initialIndex: 0,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text('All Nigeria NewsPaper App'),
+          bottom: PreferredSize(
+              child: ColoredBox(
+                color: Colors.pinkAccent,
+                child: TabBar(
+                    isScrollable: true,
+                    unselectedLabelColor: Colors.white.withOpacity(0.3),
+                    indicatorColor: Colors.white,
+                    tabs: [
+                      Tab(
+                        child: Text('Tab 1'),
+                      ),
+                      Tab(
+                        child: Text('Investment'),
+                      ),
+                      Tab(
+                        child: Text('Your Earning'),
+                      ),
+                      Tab(
+                        child: Text('Current Balance'),
+                      ),
+                      Tab(
+                        child: Text('Tab 5'),
+                      ),
+                      Tab(
+                        child: Text('Tab 6'),
+                      )
+                    ]),
+              ),
+              preferredSize: Size.fromHeight(30.0)),
+          centerTitle: true,
+          actions: [
+            // Navigate to the Search Screen
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchPage()),
+                  );
+                },
+                icon: Icon(Icons.search))
+          ],
+        ),
+        drawer: NavDrawer(),
+        body: Center(
+          child: _buildPostsList(context),
+          //child: _myPostList(),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.refresh),
+            onPressed: () {
+              Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchPage()),
-                );
-              },
-              icon: Icon(Icons.search))
-        ],
-      ),
-      drawer: NavDrawer(),
-      body: Center(
-        child: _buildPostsList(context),
-        //child: _myPostList(),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddAuthor()),
-            );
-          }),
-      bottomNavigationBar: TitledBottomNavigationBar(
-        //curve: CircularNotchedRectangle(),
-        height: 60,
-        indicatorHeight: 2,
-        onTap: (index) => print("Selected Index: $index"),
-        reverse: navBarMode,
-        curve: Curves.easeInBack,
-        items: items,
-        activeColor: Colors.red,
-        inactiveColor: Colors.blueGrey,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => super.widget));
+              //Navigator.push(
+              //context,
+              //MaterialPageRoute(builder: (context) => AddAuthor()),
+            }),
+        bottomNavigationBar: TitledBottomNavigationBar(
+          //curve: CircularNotchedRectangle(),
+          height: 60,
+          indicatorHeight: 2,
+          onTap: (index) => print("Selected Index: $index"),
+          reverse: navBarMode,
+          curve: Curves.easeInBack,
+          items: items,
+          activeColor: Colors.red,
+          inactiveColor: Colors.blueGrey,
+        ),
       ),
     );
   }
@@ -157,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(4),
                     child: CachedNetworkImage(
                       imageUrl: post.imageUrl,
                       imageBuilder: (context, imageProvider) => Container(
@@ -169,8 +204,7 @@ class _HomePageState extends State<HomePage> {
                                   Colors.red, BlendMode.colorBurn)),
                         ),
                       ),
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
+                      placeholder: (context, url) => LinearProgressIndicator(),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
@@ -180,32 +214,33 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.all(3),
                     child: Wrap(
                       children: [
-                        FlatButton(
-                          child: Text(
-                            post.title,
-                            maxLines: 8,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
+                        Text(
+                          post.title,
+                          maxLines: 8,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontFamily: 'Noticia Text',
                               fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onPressed: () {
-                            print("Welcome to the world");
-                          },
+                              fontWeight: FontWeight.w600),
                         ),
                         Padding(
                           padding: EdgeInsets.all(3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                post.category.name.toUpperCase(),
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.red,
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.pinkAccent,
+                                  border: Border.all(color: Colors.white),
+                                ),
+                                child: Text(
+                                  post.category.name.toUpperCase(),
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               Text(post.site.name),
