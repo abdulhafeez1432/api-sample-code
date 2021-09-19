@@ -1,8 +1,14 @@
+import 'package:api_app/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void toRegister() {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => RegisterPage()));
+    }
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -37,7 +43,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Register'),
-            onTap: () => null,
+            onTap: toRegister,
           ),
           ListTile(
             leading: Icon(Icons.login),
@@ -57,7 +63,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.description),
             title: Text('Policies'),
-            onTap: () => null,
+            onTap: () {},
           ),
           Divider(),
           ListTile(
