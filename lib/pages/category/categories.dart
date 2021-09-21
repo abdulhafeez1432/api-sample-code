@@ -1,4 +1,5 @@
 import 'package:api_app/model/news_category.dart';
+import 'package:api_app/pages/category/category_details.dart';
 import 'package:api_app/services/connection.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,11 @@ class _AllCategoryState extends State<AllCategory> {
 
   @override
   Widget build(BuildContext context) {
+    void onTapCategory(NewsCategory category) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CategoryDetails(category: category)));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("All News Category"),
@@ -32,7 +38,15 @@ class _AllCategoryState extends State<AllCategory> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return Text(snapshot.data![index].name);
+                  print(snapshot.data![index].name);
+                  print(snapshot.data![index]);
+                  final category = snapshot.data![index];
+                  return InkWell(
+                    child: Text(snapshot.data![index].name),
+                    onTap: () {
+                      onTapCategory(category);
+                    },
+                  );
                 },
               );
             } else if (snapshot.hasError) {

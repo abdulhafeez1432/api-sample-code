@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
           child: _buildPostsList(context),
           //child: _myPostList(),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.refresh),
             onPressed: () {
@@ -126,16 +126,29 @@ class _HomePageState extends State<HomePage> {
               //context,
               //MaterialPageRoute(builder: (context) => AddAuthor()),
             }),
-        bottomNavigationBar: TitledBottomNavigationBar(
-          //curve: CircularNotchedRectangle(),
-          height: 60,
-          indicatorHeight: 2,
-          onTap: (index) => print("Selected Index: $index"),
-          reverse: navBarMode,
-          curve: Curves.easeInBack,
-          items: items,
-          activeColor: Colors.red,
-          inactiveColor: Colors.blueGrey,
+        bottomNavigationBar: BottomAppBar(
+          //color: Colors.pinkAccent,
+          color: Theme.of(context).primaryColor.withAlpha(255),
+          shape: CircularNotchedRectangle(),
+          elevation: 0, //shape of notch
+          notchMargin: 5,
+          //onTap: onTabTapped,
+          //currentIndex: _currentIndex,
+          child: BottomNavigationBar(
+            elevation: 0,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Text('Search'),
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), title: Text('Profile')),
+            ],
+          ),
         ),
       ),
     );
