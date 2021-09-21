@@ -20,6 +20,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -30,6 +31,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   titled_navigation_bar: ^5.0.0-nullsafety.0
+  cached_network_image: ^3.1.0
+  shared_preferences: null
 
 dev_dependencies:
   flutter_test:
@@ -47,8 +50,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -62,10 +65,24 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: Noticia Text
+       fonts:
+         - asset: assets/fonts/NoticiaText-Bold.ttf
+         - asset: assets/fonts/NoticiaText-BoldItalic.ttf
+         - asset: assets/fonts/NoticiaText-Italic.ttf
+         - asset: assets/fonts/NoticiaText-Regular.ttf
+           weight: 700
+
+     - family: Neuton
+       fonts:
+         - asset: assets/fonts/Neuton-Bold.ttf
+         - asset: assets/fonts/Neuton-ExtraBold.ttf
+
+
+
+
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
