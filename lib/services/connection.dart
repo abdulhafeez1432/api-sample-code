@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:api_app/model/author.dart';
+import 'package:api_app/model/news_bycategory.dart';
 import 'package:api_app/model/news_category.dart';
 import 'package:api_app/model/post.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,24 @@ Future<PostResponse> getNews(String? page) async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     newsModel = PostResponse.fromJson(jsonDecode(response.body));
+    return newsModel;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load News');
+  }
+}
+
+Future<NewsByCategory> getNewsByCategory(String category) async {
+  final response = await http.get(Uri.parse(
+    'http://api.allnigerianewspapers.com.ng/api/allnewsbycategory/$category',
+  ));
+
+  var newsModel;
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    newsModel = NewsCategory.fromMap(jsonDecode(response.body));
     return newsModel;
   } else {
     // If the server did not return a 200 OK response,

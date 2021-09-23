@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
         username: username!,
         password: password!,
       );
-      //SharedPreferences prefs = await SharedPreferences.getInstance();
-      //prefs.setString('token', token);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
 
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));

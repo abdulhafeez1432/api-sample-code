@@ -4,14 +4,15 @@
 
 import 'dart:convert';
 
-List<NewsCategory> newsCategoryFromMap(String str) => List<NewsCategory>.from(
-    json.decode(str).map((x) => NewsCategory.fromMap(x)));
+List<NewsByCategory> newsByCategoryFromMap(String str) =>
+    List<NewsByCategory>.from(
+        json.decode(str).map((x) => NewsByCategory.fromMap(x)));
 
-String newsCategoryToMap(List<NewsCategory> data) =>
+String newsCategoryToMap(List<NewsByCategory> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
 
-class NewsCategory {
-  NewsCategory({
+class NewsByCategory {
+  NewsByCategory({
     required this.id,
     required this.title,
     required this.content,
@@ -35,7 +36,7 @@ class NewsCategory {
   String uploaded;
   List<int> comment;
 
-  factory NewsCategory.fromMap(Map<String, dynamic> json) => NewsCategory(
+  factory NewsByCategory.fromMap(Map<String, dynamic> json) => NewsByCategory(
         id: json["id"],
         title: json["title"],
         content: json["content"],
