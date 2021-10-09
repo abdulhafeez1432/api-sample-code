@@ -1,4 +1,5 @@
 import 'package:api_app/pages/register/register_page.dart';
+import 'package:api_app/sample.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/category/categories.dart';
@@ -14,6 +15,10 @@ class NavDrawer extends StatelessWidget {
     void toCategory() {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => AllCategory()));
+    }
+
+    void toNewCategory() {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ListNews()));
     }
 
     return Drawer(
@@ -54,8 +59,8 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.login),
-            title: Text('Login'),
-            onTap: () => null,
+            title: Text('Sample'),
+            onTap: toNewCategory,
           ),
           ListTile(
             leading: Icon(Icons.notifications),

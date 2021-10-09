@@ -22,17 +22,16 @@ Future<PostResponse> getNews(String? page) async {
   }
 }
 
-Future<NewsByCategory> getNewsByCategory(String category) async {
+Future<List<NewsByCategory>> getNewsByCategory(String category) async {
   final response = await http.get(Uri.parse(
     'http://api.allnigerianewspapers.com.ng/api/allnewsbycategory/$category',
   ));
 
-  var newsModel;
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    newsModel = NewsCategory.fromMap(jsonDecode(response.body));
-    return newsModel;
+    List data = jsonDecode(response.body);
+    return data.map((e) => NewsByCategory.fromMap(e)).toList();
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

@@ -1,3 +1,4 @@
+import 'package:api_app/model/news_bycategory.dart';
 import 'package:api_app/model/news_category.dart';
 import 'package:api_app/services/connection.dart';
 import 'package:flutter/material.dart';
@@ -12,38 +13,55 @@ class CategoryDetails extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
-  bool loading = true;
-  String? error;
-
-  void fetchNewsByCategory() async {
-    try {
-      final res = await getNewsByCategory(widget.category.name);
-
-      ///this is feteching data from list of post from
-      ///http://api.allnigerianewspapers.com.ng/api/allnewsbycategory/{category}
-      ///{category} = wideget.category.name
-
-      /// do what you need with the res like saving in the list of posts category_details.dart and news_bycategories.dart
-      print(res.category.id);
-
-      loading = false;
-    } catch (e) {
-      loading = false;
-      error = e.toString();
-    }
-
-    setState(() {});
-  }
+  late Future<List<NewsByCategory>> fetchResult;
 
   @override
   void initState() {
+    fetchResult = getNewsByCategory(widget.category.name);
     super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) => fetchNewsByCategory());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("All News On the category"),
+      ),
+      body: Center(
+        child: FutureBuilder<List<NewsByCategory>>(
+          future: fetchResult,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  print(snapshot.data![index].title);
+                  //print(snapshot.data![index]);
+                  return Text(snapshot.data![index].title);
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPostsList(List<NewsByCategory> news) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: news.length,
+      itemBuilder: (context, index) {
+        NewsByCategory post = news[index];
+        return ListTile(
+          title: Text(post.title),
+          subtitle: Text(post.content, maxLines: 1),
+        );
+      },
+    );
   }
 }

@@ -46,6 +46,7 @@ class Post {
   String? author;
   Site site;
   String uploaded;
+  List<int> comment;
 
   Post({
     required this.title,
@@ -56,6 +57,7 @@ class Post {
     required this.author,
     required this.site,
     required this.uploaded,
+    required this.comment,
   });
 
   factory Post.fromJson(dynamic json) => Post(
@@ -67,6 +69,7 @@ class Post {
         author: json["author"] ?? 'Admin',
         site: Site.fromJson(json["site"]),
         uploaded: json["uploaded"],
+        comment: List<int>.from(json["comment"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,5 +81,6 @@ class Post {
         "author": author,
         "site": site.toJson(),
         "uploaded": uploaded,
+        "comment": List<dynamic>.from(comment.map((x) => x)),
       };
 }
