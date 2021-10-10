@@ -349,4 +349,27 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
+  Widget _buildCategoryList(BuildContext context) {
+    return FutureBuilder<List<NewsCategory>>(
+        future: fetchResult,
+        builder: (c, s) {
+          if (s.hasData) {
+            //List<Tab> tabs = new List<Tab>();
+            List<Tab> tabs = <Tab>[];
+
+            for (int i = 0; i < s.data!.length; i++) {
+              tabs.add(Tab(
+                child: Text(
+                  s.data![i].name,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ));
+            }
+          } else if (s.hasError) {
+            return Text("${s.error}");
+          }
+          return Center(child: CircularProgressIndicator());
+        });
+  }
 }

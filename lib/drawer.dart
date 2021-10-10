@@ -59,7 +59,7 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.login),
-            title: Text('Sample'),
+            title: Text('TabBar'),
             onTap: toNewCategory,
           ),
           ListTile(
