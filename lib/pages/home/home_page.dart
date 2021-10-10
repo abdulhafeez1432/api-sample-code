@@ -106,74 +106,72 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         drawer: NavDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 25.0),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 25.0),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 19.0),
+                child: Row(
+                  children: [
+                    Text("YOUR FAVORITE NEWSPAPER", style: kNonActiveTabStyle),
+                    SizedBox(width: 10),
+                    Icon(Icons.backup_table_sharp),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 25.0),
+            Container(
+              width: double.infinity,
+              height: 275.0,
+              padding: EdgeInsets.only(left: 18.0),
+              child: ListView.builder(
+                itemCount: popularList.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  var news = popularList[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReadNewsView(news: news),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 12.0),
+                      child: PrimaryCard(news: news),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 25.0),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
                   padding: EdgeInsets.only(left: 19.0),
                   child: Row(
                     children: [
-                      Text("YOUR FAVORITE NEWSPAPER",
-                          style: kNonActiveTabStyle),
+                      Text("TOP NIGERIA NEWSPAPER", style: kNonActiveTabStyle),
                       SizedBox(width: 10),
-                      Icon(Icons.backup_table_sharp),
+                      Icon(Icons.book_online),
                     ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 25.0),
-              Container(
-                width: double.infinity,
-                height: 275.0,
-                padding: EdgeInsets.only(left: 18.0),
-                child: ListView.builder(
-                  itemCount: popularList.length,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var news = popularList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReadNewsView(news: news),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 12.0),
-                        child: PrimaryCard(news: news),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: 25.0),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding: EdgeInsets.only(left: 19.0),
-                    child: Row(
-                      children: [
-                        Text("TOP NIGERIA NEWSPAPER",
-                            style: kNonActiveTabStyle),
-                        SizedBox(width: 10),
-                        Icon(Icons.book_online),
-                      ],
-                    )),
-              ),
-              SizedBox(height: 10.0),
-              Container(
+                  )),
+            ),
+            SizedBox(height: 10.0),
+            Expanded(
+              child: Container(
                 child: _buildPostsList(context),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           //Floating action button on Scaffold
