@@ -25,46 +25,47 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   titled_navigation_bar: ^5.0.0-nullsafety.0
   cached_network_image: ^3.1.0
   shared_preferences: null
+  flutter_svg: ^0.20.0-nullsafety.3
+  google_fonts: ^2.1.0
+  flutter_native_splash: null
+  flutter_launcher_icons: null
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+
+
+flutter_icons:
+  image_path: "assets/spalsh_screen_icon.png"
+  android: "launcher_icon"
+  ios: true
+
+flutter_native_splash:
+  color: "#32b3a4"
+  image: assets/splash.png
+  color_dark: "#32b3a4"
+  image_dark: assets/splash.png
+  android: true
+  ios: true
+  android_gravity: fill
+  ios_content_mode: scaleAspectFill
+  flutter_svg: null
+
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
+
   assets:
     - images/
-  #   - images/a_dot_ham.jpeg
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
      - family: Noticia Text
        fonts:
@@ -78,18 +79,3 @@ flutter:
        fonts:
          - asset: assets/fonts/Neuton-Bold.ttf
          - asset: assets/fonts/Neuton-ExtraBold.ttf
-
-
-
-
-
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
