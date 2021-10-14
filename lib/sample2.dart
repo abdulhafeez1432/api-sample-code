@@ -1,5 +1,6 @@
 import 'package:api_app/constants.dart';
 import 'package:api_app/model/news.dart';
+import 'package:api_app/model/news_category.dart';
 import 'package:api_app/pages/details/news_detail.dart';
 import 'package:api_app/views/read_news_view.dart';
 import 'package:api_app/widgets/primary_card.dart';

@@ -10,6 +10,7 @@ String siteToJson(List<Site> data) {
 }
 
 class Site {
+  bool isSelected = false;
   String name;
   String logo;
 
@@ -22,6 +23,8 @@ class Site {
         name: json["name"] as String,
         logo: json["logo"] as String,
       );
+
+
 
   Map<String, dynamic> toJson() => {
         "name": name,

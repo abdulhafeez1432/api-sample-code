@@ -4,6 +4,8 @@ List<NewsCategory> newcategoryFromJson(String str) => List<NewsCategory>.from(
     json.decode(str).map((x) => NewsCategory.fromMap(x)));
 
 class NewsCategory {
+  bool isSelected = false;
+
   NewsCategory({
     required this.id,
     required this.name,

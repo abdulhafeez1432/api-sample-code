@@ -2,7 +2,9 @@ class Registration {
   final String username;
   final String email;
   final String password;
+  //You shouldnot use '_' for String. You can use it as firstName or firstname. 
   final String first_name;
+  //Same as above
   final String last_name;
 
   Registration({

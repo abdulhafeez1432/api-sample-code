@@ -92,6 +92,7 @@ class Category {
 }
 
 class Site {
+  bool isSelected = false;
   Site({
     required this.name,
     required this.logo,

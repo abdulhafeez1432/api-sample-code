@@ -38,7 +38,7 @@ class _ListNewsState extends State<ListNews> {
             length: s.data!.length,
             child: Scaffold(
               appBar: AppBar(
-                title: Image.asset('assets/logo.png', fit: BoxFit.cover),
+                title: Image.asset('assets/splash.png', fit: BoxFit.cover),
                 backgroundColor: Colors.grey[900],
                 bottom: TabBar(
                   isScrollable: true,

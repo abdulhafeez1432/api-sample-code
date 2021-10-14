@@ -1,10 +1,15 @@
+import 'package:api_app/pages/favorite/add_favorite.dart';
+import 'package:api_app/pages/login/login_page.dart';
 import 'package:api_app/pages/register/register_page.dart';
 import 'package:api_app/sample.dart';
+import 'package:api_app/services/sputils.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/category/categories.dart';
 
 class NavDrawer extends StatelessWidget {
+  final String token;
+  const NavDrawer({required this.token});
   @override
   Widget build(BuildContext context) {
     void toRegister() {
@@ -17,17 +22,26 @@ class NavDrawer extends StatelessWidget {
           .push(MaterialPageRoute(builder: (_) => AllCategory()));
     }
 
-    void toNewCategory() {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ListNews()));
+    void toFavorite() {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => AddFavorite()));
     }
 
+
+
+    void toNewCategory() {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoginPage()));
+    }
+    String userName = SPUtil.getString('userName');
+    String email = SPUtil.getString('email');
+    String token = SPUtil.getString('token');
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('couonectechnology.com.ng'),
-            accountEmail: Text('ade@couonectechnology.com.ng'),
+            accountName: Text(userName.isEmpty ? 'allnigerianews.com.ng' : userName),
+            accountEmail: Text(email.isEmpty ? 'user@allnigerianews.com.ng': email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
@@ -59,12 +73,13 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.login),
-            title: Text('TabBar'),
+            title: Text('Login'),
             onTap: toNewCategory,
           ),
           ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Request'),
+            leading: Icon(Icons.favorite),
+            title: Text('Favorite'),
+            onTap: toFavorite,
           ),
           Divider(),
           ListTile(
