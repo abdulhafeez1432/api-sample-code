@@ -1,3 +1,4 @@
+import 'package:api_app/pages/home/home_page.dart';
 import 'package:api_app/views/account_view.dart';
 import 'package:api_app/views/favorite_view.dart';
 import 'package:api_app/views/home_view.dart';
@@ -20,10 +21,8 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   static List<Widget> _bottomNavView = [
-    HomeView(),
-    SearchView(),
-    FavoriteView(),
-    AccountView(),
+    HomePage(),
+
   ];
 
   @override
@@ -64,7 +63,7 @@ class NavBarItem {
   final String icon;
   final String activeIcon;
   final String title;
-  NavBarItem({this.icon, this.activeIcon, this.title});
+  NavBarItem({required this.icon, required this.activeIcon, required this.title});
 }
 
 List<NavBarItem> _navBarList = [

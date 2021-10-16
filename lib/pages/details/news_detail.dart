@@ -3,11 +3,15 @@ import 'package:api_app/model/post.dart';
 import 'package:flutter/material.dart';
 
 class PostDetails extends StatelessWidget {
+
   final Post post;
   const PostDetails({required this.post});
 
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController commentController = TextEditingController();
+
     final coursePrice = Container(
       padding: const EdgeInsets.all(7.0),
       decoration: new BoxDecoration(
@@ -116,7 +120,45 @@ class PostDetails extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: bottomContentText,
-            )
+            ),
+            Align(
+              child: Container(
+                  height: 20.0,
+                  padding: EdgeInsets.symmetric(vertical: 2.0),
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // First child is enter comment text input
+                        TextFormField(
+                          controller: commentController,
+                          autocorrect: false,
+                          decoration: new InputDecoration(
+                            labelText: "Add Comment",
+                            labelStyle:
+                            TextStyle(fontSize: 20.0, color: Colors.white),
+                            fillColor: Colors.blue,
+                            border: OutlineInputBorder(
+                              // borderRadius:
+                              //     BorderRadius.all(Radius.zero(5.0)),
+                                borderSide:
+                                BorderSide(color: Colors.purpleAccent)),
+                          ),
+                        ),
+                        // Second child is button
+                        IconButton(
+                          icon: Icon(Icons.send),
+                          iconSize: 20.0,
+                          onPressed: () {},
+                        )
+                      ]
+                  )
+              ),
+            ),
+
+
+
+
           ],
         ),
       ),

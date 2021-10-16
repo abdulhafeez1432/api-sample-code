@@ -40,7 +40,7 @@ class NavDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(userName.isEmpty ? 'allnigerianews.com.ng' : userName),
+            accountName: Text(userName.isEmpty ? 'All News' : userName),
             accountEmail: Text(email.isEmpty ? 'user@allnigerianews.com.ng': email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
